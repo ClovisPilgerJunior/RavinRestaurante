@@ -1,4 +1,4 @@
-# ravinRestaurant +devs2blu projeto
+# RavinRestaurante +devs2blu projeto
 
 ## Objetivo do projeto
  Projeto a ser desenvolvido em curso para aplicar conhecimentos de OO em Java, Spring, entre outras ferramentas. Trata-se de um sistema de gestão de mesas de um  
@@ -78,4 +78,4 @@
 - Ao adicionar uma pessoa a uma mesa deve-se verificar a quantidade máxima de pessoas;
 
 ## Diagrama de Classe
-![Diagrama de classe](diagram/Ravin.drawio.svg)
+![Diagrama de classe](diagram/Ravin_v.1.0.0.drawio.svg)
