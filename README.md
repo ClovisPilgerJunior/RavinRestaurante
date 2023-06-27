@@ -78,4 +78,4 @@
 - Ao adicionar uma pessoa a uma mesa deve-se verificar a quantidade máxima de pessoas;
 
 ## Diagrama de Classe
-![Diagrama de classe](diagram/Ravin_v.1.0.0.drawio.svg)
+![Diagrama de classe](https://drive.google.com/file/d/1nwgAB8cuRnh-vakmz3nhs7339FTaDslY/view?usp=drive_link)
