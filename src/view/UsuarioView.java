@@ -7,6 +7,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static view.MenuMainView.exibirMenuPrincipal;
+
 public class UsuarioView {
   private UsuarioController usuarioController;
 
@@ -31,19 +33,24 @@ public class UsuarioView {
     loginButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        String usuario = usuarioField.getText();
+        String login = usuarioField.getText();
         char[] senhaChars = senhaField.getPassword();
         String senha = new String(senhaChars);
 
-        // Lógica de autenticação do usuário aqui
+        boolean autenticado = usuarioController.autenticarUsuario(login, senha);
 
-        // Exemplo simples: exibir mensagem com os dados digitados
-        JOptionPane.showMessageDialog(loginFrame, "Usuário: " + usuario + "\nSenha: " + senha);
-
-        // Após a autenticação, você pode realizar outras ações, como mostrar a tela principal do sistema
-        // ou chamar outros métodos do controlador, dependendo da sua lógica de negócio.
+        if (autenticado) {
+          // Lógica para ação após a autenticação bem-sucedida
+          JOptionPane.showMessageDialog(loginFrame, "Autenticação bem-sucedida!");
+          loginFrame.dispose();
+          exibirMenuPrincipal();
+        } else {
+          // Lógica para ação após a autenticação falhada
+          JOptionPane.showMessageDialog(loginFrame, "Autenticação falhou!");
+        }
       }
     });
+
 
     panel.add(usuarioLabel);
     panel.add(usuarioField);
