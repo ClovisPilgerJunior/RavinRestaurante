@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import static view.MenuMainView.exibirMenuPrincipal;
 
 public class UsuarioView {
-  private UsuarioController usuarioController;
+  private final UsuarioController usuarioController;
 
   public UsuarioView(UsuarioController usuarioController) {
     this.usuarioController = usuarioController;
@@ -20,22 +20,21 @@ public class UsuarioView {
     JFrame loginFrame = new JFrame("Tela de Login");
     loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    JPanel panel = new JPanel(new GridLayout(3, 2));
+    var panel = new JPanel(new GridLayout(3, 2));
 
-    JLabel usuarioLabel = new JLabel("Usuário:");
-    JTextField usuarioField = new JTextField(10);
+    var usuarioLabel = new JLabel("Usuário:");
+    var usuarioField = new JTextField(10);
 
-    JLabel senhaLabel = new JLabel("Senha:");
-    JPasswordField senhaField = new JPasswordField(10);
+    var senhaLabel = new JLabel("Senha:");
+    var senhaField = new JPasswordField(10);
 
-    JButton loginButton = new JButton("Login");
+    var loginButton = new JButton("Login");
 
     loginButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        String login = usuarioField.getText();
-        char[] senhaChars = senhaField.getPassword();
-        String senha = new String(senhaChars);
+        var login = usuarioField.getText();
+        var senha = String.valueOf(senhaField.getPassword());
 
         boolean autenticado = usuarioController.autenticarUsuario(login, senha);
 
@@ -65,13 +64,13 @@ public class UsuarioView {
     loginFrame.setVisible(true);
   }
   public void cadastrarUsuarioPanel() {
-    JTextField idCampo = new JTextField(10);
-    JTextField loginCampo = new JTextField(10);
-    JTextField senhaCampo = new JTextField(10);
-    JTextField tipoUsuarioCampo = new JTextField(10);
-    JTextField ativoCampo = new JTextField(10);
+    var idCampo = new JTextField(10);
+    var loginCampo = new JTextField(10);
+    var senhaCampo = new JTextField(10);
+    var tipoUsuarioCampo = new JTextField(10);
+    var ativoCampo = new JTextField(10);
 
-    JPanel inputPanel = new JPanel(new GridLayout(0, 2));
+    var inputPanel = new JPanel(new GridLayout(0, 2));
     inputPanel.add(new JLabel("ID:"));
     inputPanel.add(idCampo);
     inputPanel.add(new JLabel("Login:"));
@@ -83,7 +82,8 @@ public class UsuarioView {
     inputPanel.add(new JLabel("Ativo:"));
     inputPanel.add(ativoCampo);
 
-    int option = JOptionPane.showConfirmDialog(null, inputPanel, "Formulário de Usuário", JOptionPane.OK_CANCEL_OPTION);
+    int option = JOptionPane.showConfirmDialog(null, inputPanel, "Formulário de Usuário",
+        JOptionPane.OK_CANCEL_OPTION);
     if (option == JOptionPane.OK_OPTION) {
       String id = idCampo.getText();
       String login = loginCampo.getText();

@@ -14,6 +14,21 @@ public class UsuarioModel {
     private String alteradoPor;
     private LocalDate alteradoEm;
 
+    @Override
+    public String toString () {
+        return "UsuarioModel{" +
+            "id=" + id +
+            ", login='" + login + '\'' +
+            ", senha='" + senha + '\'' +
+            ", tipoUsuario=" + tipoUsuario +
+            ", ativo=" + ativo +
+            ", criadoPor='" + criadoPor + '\'' +
+            ", criadoEm=" + criadoEm +
+            ", alteradoPor='" + alteradoPor + '\'' +
+            ", alteradoEm=" + alteradoEm +
+            '}';
+    }
+
     public UsuarioModel () {
     }
 

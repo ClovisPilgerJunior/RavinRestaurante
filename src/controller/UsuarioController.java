@@ -49,7 +49,9 @@ public class UsuarioController {
         }
 
         // Criar o usuário administrador
-        UsuarioModel usuarioAdmin = new UsuarioModel();
+        UsuarioModel usuarioAdmin = new UsuarioModel(
+
+        );
         usuarioAdmin.setId(1);
         usuarioAdmin.setLogin("admin");
         usuarioAdmin.setSenha("admin");
