@@ -16,6 +16,53 @@ public class UsuarioView {
     this.usuarioController = usuarioController;
   }
 
+  public static void criarMenuUsuario(JMenuBar menuBar) {
+    JMenu usuarioMenu = new JMenu("Usuário");
+    JMenuItem cadastrarUsuarioItem = new JMenuItem("Cadastrar");
+    JMenuItem alterarUsuarioItem = new JMenuItem("Alterar");
+    JMenuItem buscarUsuarioItem = new JMenuItem("Buscar");
+    JMenuItem listarUsuarioItem = new JMenuItem("Listar");
+
+    usuarioMenu.add(cadastrarUsuarioItem);
+    usuarioMenu.add(alterarUsuarioItem);
+    usuarioMenu.add(buscarUsuarioItem);
+    usuarioMenu.add(listarUsuarioItem);
+
+    menuBar.add(usuarioMenu);
+
+    cadastrarUsuarioItem.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        // Lógica para cadastrar usuário
+        UsuarioView.cadastrarUsuarioPanel();
+      }
+    });
+
+    alterarUsuarioItem.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        // Lógica para alterar usuário
+        JOptionPane.showMessageDialog(null, "Alterar Usuário");
+      }
+    });
+
+    buscarUsuarioItem.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        // Lógica para buscar usuário
+        JOptionPane.showMessageDialog(null, "Buscar Usuário");
+      }
+    });
+
+    listarUsuarioItem.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        // Lógica para listar usuários
+        JOptionPane.showMessageDialog(null, "Listar Usuários");
+      }
+    });
+  }
+
   public void loginUsuarioPanel() {
     JFrame loginFrame = new JFrame("Tela de Login");
     loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

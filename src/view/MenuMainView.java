@@ -13,29 +13,79 @@ public class MenuMainView {
 
             JMenuBar menuBar = new JMenuBar();
 
-            JMenu funcionarioMenu = new JMenu("Funcionário");
-            JMenuItem cadastrarFuncionarioItem = new JMenuItem("Cadastrar");
-            JMenuItem alterarFuncionarioItem = new JMenuItem("Alterar");
-            JMenuItem buscarFuncionarioItem = new JMenuItem("Buscar");
-            JMenuItem listarFuncionariosItem = new JMenuItem("Listar");
+            JMenu clienteMenu = new JMenu("Cliente");
+            JMenuItem cadastrarClienteItem = new JMenuItem("Cadastrar");
+            JMenuItem alterarClienteItem = new JMenuItem("Alterar");
+            JMenuItem buscarClienteItem = new JMenuItem("Buscar");
+            JMenuItem listarClientesItem = new JMenuItem("Listar");
 
-            funcionarioMenu.add(cadastrarFuncionarioItem);
-            funcionarioMenu.add(alterarFuncionarioItem);
-            funcionarioMenu.add(buscarFuncionarioItem);
-            funcionarioMenu.add(listarFuncionariosItem);
+            clienteMenu.add(cadastrarClienteItem);
+            clienteMenu.add(alterarClienteItem);
+            clienteMenu.add(buscarClienteItem);
+            clienteMenu.add(listarClientesItem);
+
+            JMenu produtoMenu = new JMenu("Produto");
+            JMenuItem cadastrarProdutoItem = new JMenuItem("Cadastrar");
+            JMenuItem alterarProdutoItem = new JMenuItem("Alterar");
+            JMenuItem buscarProdutoItem = new JMenuItem("Buscar");
+            JMenuItem listarProdutosItem = new JMenuItem("Listar");
+
+            produtoMenu.add(cadastrarProdutoItem);
+            produtoMenu.add(alterarProdutoItem);
+            produtoMenu.add(buscarProdutoItem);
+            produtoMenu.add(listarProdutosItem);
+
+            JMenu cardapioMenu = new JMenu("Cardápio");
+            JMenuItem cadastrarCardapioItem = new JMenuItem("Cadastrar");
+            JMenuItem alterarCardapioItem = new JMenuItem("Alterar");
+            JMenuItem buscarCardapioItem = new JMenuItem("Buscar");
+            JMenuItem listarCardapiosItem = new JMenuItem("Listar");
+
+            cardapioMenu.add(cadastrarCardapioItem);
+            cardapioMenu.add(alterarCardapioItem);
+            cardapioMenu.add(buscarCardapioItem);
+            cardapioMenu.add(listarCardapiosItem);
+
+            JMenu mesaMenu = new JMenu("Mesa");
+            JMenuItem cadastrarMesaItem = new JMenuItem("Cadastrar");
+            JMenuItem alterarMesaItem = new JMenuItem("Alterar");
+            JMenuItem buscarMesaItem = new JMenuItem("Buscar");
+            JMenuItem listarMesasItem = new JMenuItem("Listar");
+
+            mesaMenu.add(cadastrarMesaItem);
+            mesaMenu.add(alterarMesaItem);
+            mesaMenu.add(buscarMesaItem);
+            mesaMenu.add(listarMesasItem);
+
+            JMenu pedidoMenu = new JMenu("Pedido");
+            JMenuItem cadastrarPedidoItem = new JMenuItem("Cadastrar");
+            JMenuItem alterarPedidoItem = new JMenuItem("Alterar");
+            JMenuItem buscarPedidoItem = new JMenuItem("Buscar");
+            JMenuItem listarPedidosItem = new JMenuItem("Listar");
+
+            pedidoMenu.add(cadastrarPedidoItem);
+            pedidoMenu.add(alterarPedidoItem);
+            pedidoMenu.add(buscarPedidoItem);
+            pedidoMenu.add(listarPedidosItem);
+
 
             JMenu sairMenu = new JMenu("Sair");
             JMenuItem sairItem = new JMenuItem("Sair");
 
             sairMenu.add(sairItem);
 
-            menuBar.add(funcionarioMenu);
+
+            FuncionarioView.criarMenuFuncionario(menuBar);
+            menuBar.add(produtoMenu);
+            menuBar.add(cardapioMenu);
+            menuBar.add(mesaMenu);
+            menuBar.add(pedidoMenu);
+            UsuarioView.criarMenuUsuario(menuBar);
             menuBar.add(sairMenu);
-
-
 
             frame.setJMenuBar(menuBar);
             frame.setSize(800, 600);
+            frame.setResizable(false);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
 
@@ -46,37 +96,7 @@ public class MenuMainView {
                   }
             });
 
-            cadastrarFuncionarioItem.addActionListener(new ActionListener() {
-                  @Override
-                  public void actionPerformed(ActionEvent e) {
-                        // Lógica para cadastrar funcionário
-                        JOptionPane.showMessageDialog(frame, "Cadastrar Funcionário");
-                  }
-            });
 
-            alterarFuncionarioItem.addActionListener(new ActionListener() {
-                  @Override
-                  public void actionPerformed(ActionEvent e) {
-                        // Lógica para alterar funcionário
-                        JOptionPane.showMessageDialog(frame, "Alterar Funcionário");
-                  }
-            });
-
-            buscarFuncionarioItem.addActionListener(new ActionListener() {
-                  @Override
-                  public void actionPerformed(ActionEvent e) {
-                        // Lógica para buscar funcionário
-                        JOptionPane.showMessageDialog(frame, "Buscar Funcionário");
-                  }
-            });
-
-            listarFuncionariosItem.addActionListener(new ActionListener() {
-                  @Override
-                  public void actionPerformed(ActionEvent e) {
-                        // Lógica para listar funcionários
-                        JOptionPane.showMessageDialog(frame, "Listar Funcionários");
-                  }
-            });
       }
 }
 
