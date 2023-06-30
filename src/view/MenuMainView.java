@@ -1,37 +1,84 @@
 package view;
 
+import javax.print.attribute.standard.JobKOctets;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MenuMainView {
-  public static void exibirMenuPrincipal() {
-        JFrame frame = new JFrame("Menu Principal");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      public static void exibirMenuPrincipal() {
+            JFrame frame = new JFrame("Menu Principal");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JPanel panel = new JPanel();
-        JButton funcionarioButton = new JButton("Funcionário");
-        JButton clienteButton = new JButton("Cliente");
-        JButton produtoButton = new JButton("Produto");
-        JButton cardapioButton = new JButton("Cardápio");
-        JButton mesaButton = new JButton("Mesa");
-        JButton pedidoButton = new JButton("Pedido");
-        JButton sairButton = new JButton("Sair");
+            JMenuBar menuBar = new JMenuBar();
 
-        panel.add(funcionarioButton);
-        panel.add(clienteButton);
-        panel.add(produtoButton);
-        panel.add(cardapioButton);
-        panel.add(mesaButton);
-        panel.add(pedidoButton);
-        panel.add(sairButton);
+            JMenu funcionarioMenu = new JMenu("Funcionário");
+            JMenuItem cadastrarFuncionarioItem = new JMenuItem("Cadastrar");
+            JMenuItem alterarFuncionarioItem = new JMenuItem("Alterar");
+            JMenuItem buscarFuncionarioItem = new JMenuItem("Buscar");
+            JMenuItem listarFuncionariosItem = new JMenuItem("Listar");
 
-        // Aqui você pode adicionar as ações dos botões
+            funcionarioMenu.add(cadastrarFuncionarioItem);
+            funcionarioMenu.add(alterarFuncionarioItem);
+            funcionarioMenu.add(buscarFuncionarioItem);
+            funcionarioMenu.add(listarFuncionariosItem);
 
-        frame.setUndecorated(true);
-        frame.add(panel);
-        frame.pack();
-        frame.setSize(800, 600);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.setVisible(true);
-  }
+            JMenu sairMenu = new JMenu("Sair");
+            JMenuItem sairItem = new JMenuItem("Sair");
+
+            sairMenu.add(sairItem);
+
+            menuBar.add(funcionarioMenu);
+            menuBar.add(sairMenu);
+
+
+
+            frame.setJMenuBar(menuBar);
+            frame.setSize(800, 600);
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+
+            sairItem.addActionListener(new ActionListener() {
+                  @Override
+                  public void actionPerformed(ActionEvent e) {
+                        frame.dispose();
+                  }
+            });
+
+            cadastrarFuncionarioItem.addActionListener(new ActionListener() {
+                  @Override
+                  public void actionPerformed(ActionEvent e) {
+                        // Lógica para cadastrar funcionário
+                        JOptionPane.showMessageDialog(frame, "Cadastrar Funcionário");
+                  }
+            });
+
+            alterarFuncionarioItem.addActionListener(new ActionListener() {
+                  @Override
+                  public void actionPerformed(ActionEvent e) {
+                        // Lógica para alterar funcionário
+                        JOptionPane.showMessageDialog(frame, "Alterar Funcionário");
+                  }
+            });
+
+            buscarFuncionarioItem.addActionListener(new ActionListener() {
+                  @Override
+                  public void actionPerformed(ActionEvent e) {
+                        // Lógica para buscar funcionário
+                        JOptionPane.showMessageDialog(frame, "Buscar Funcionário");
+                  }
+            });
+
+            listarFuncionariosItem.addActionListener(new ActionListener() {
+                  @Override
+                  public void actionPerformed(ActionEvent e) {
+                        // Lógica para listar funcionários
+                        JOptionPane.showMessageDialog(frame, "Listar Funcionários");
+                  }
+            });
+      }
 }
+
+
+

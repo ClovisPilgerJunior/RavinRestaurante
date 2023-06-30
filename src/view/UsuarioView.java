@@ -50,7 +50,6 @@ public class UsuarioView {
       }
     });
 
-
     panel.add(usuarioLabel);
     panel.add(usuarioField);
     panel.add(senhaLabel);
@@ -63,7 +62,7 @@ public class UsuarioView {
     loginFrame.setLocationRelativeTo(null); // Centralizar a janela na tela
     loginFrame.setVisible(true);
   }
-  public void cadastrarUsuarioPanel() {
+  public static void cadastrarUsuarioPanel() {
     var idCampo = new JTextField(10);
     var loginCampo = new JTextField(10);
     var senhaCampo = new JTextField(10);
