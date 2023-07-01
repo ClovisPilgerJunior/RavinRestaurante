@@ -53,7 +53,7 @@ public class UsuarioController {
         usuarioAdmin.setLogin("admin");
         usuarioAdmin.setSenha("admin");
         usuarioAdmin.setAtivo(true);
-        usuarioAdmin.setTipoUsuario(TipoUsuario.ADMINISTRADOR);
+        usuarioAdmin.setTipoUsuario(TipoUsuario.FUNCIONARIO);
         // Defina outros atributos do usuário administrador, se necessário
 
         usuarioRepo.salvar(usuarioAdmin);
