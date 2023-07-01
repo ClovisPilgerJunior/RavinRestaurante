@@ -1,4 +1,5 @@
 import controller.UsuarioController;
+import view.LoginView;
 import view.UsuarioView;
 
 public class RavinMain {
@@ -7,6 +8,6 @@ public class RavinMain {
 
         UsuarioView usuarioView = new UsuarioView(usuarioController);
 
-        usuarioView.loginUsuarioPanel();
+        LoginView.criarLoginMenu();
     }
 }

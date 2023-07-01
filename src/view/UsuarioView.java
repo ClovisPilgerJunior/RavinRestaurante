@@ -1,6 +1,8 @@
 package view;
 
 import controller.UsuarioController;
+import enums.TipoUsuario;
+import model.UsuarioModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,27 +10,40 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import static view.MenuMainView.exibirMenuPrincipal;
+import static view.MenuMainView.usuarioController;
 
 public class UsuarioView {
-  private final UsuarioController usuarioController;
+  private UsuarioController usuarioController;
 
-  public UsuarioView(UsuarioController usuarioController) {
-    this.usuarioController = usuarioController;
+  public UsuarioView(UsuarioController controller) {
+    this.usuarioController = controller;
   }
 
-  public static void criarMenuUsuario(JMenuBar menuBar) {
+  public static void criarMenuUsuario (JMenuBar menuBar) {
     JMenu usuarioMenu = new JMenu("Usuário");
+    JMenuItem trocarUsuarioItem = new JMenuItem("Trocar Usuário");
     JMenuItem cadastrarUsuarioItem = new JMenuItem("Cadastrar");
     JMenuItem alterarUsuarioItem = new JMenuItem("Alterar");
     JMenuItem buscarUsuarioItem = new JMenuItem("Buscar");
     JMenuItem listarUsuarioItem = new JMenuItem("Listar");
 
+    usuarioMenu.add(trocarUsuarioItem);
     usuarioMenu.add(cadastrarUsuarioItem);
     usuarioMenu.add(alterarUsuarioItem);
     usuarioMenu.add(buscarUsuarioItem);
     usuarioMenu.add(listarUsuarioItem);
 
     menuBar.add(usuarioMenu);
+
+    trocarUsuarioItem.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        // Lógica para cadastrar usuário
+
+        LoginView.criarLoginMenu();
+
+      }
+    });
 
     cadastrarUsuarioItem.addActionListener(new ActionListener() {
       @Override
@@ -63,80 +78,56 @@ public class UsuarioView {
     });
   }
 
-  public void loginUsuarioPanel() {
-    JFrame loginFrame = new JFrame("Tela de Login");
-    loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  public static UsuarioModel cadastrarUsuarioPanel() {
+    UsuarioModel usuarioModel = new UsuarioModel();
 
-    var panel = new JPanel(new GridLayout(3, 2));
-
-    var usuarioLabel = new JLabel("Usuário:");
-    var usuarioField = new JTextField(10);
-
-    var senhaLabel = new JLabel("Senha:");
-    var senhaField = new JPasswordField(10);
-
-    var loginButton = new JButton("Login");
-
-    loginButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        var login = usuarioField.getText();
-        var senha = String.valueOf(senhaField.getPassword());
-
-        boolean autenticado = usuarioController.autenticarUsuario(login, senha);
-
-        if (autenticado) {
-          // Lógica para ação após a autenticação bem-sucedida
-          JOptionPane.showMessageDialog(loginFrame, "Autenticação bem-sucedida!");
-          loginFrame.dispose();
-          exibirMenuPrincipal();
-        } else {
-          // Lógica para ação após a autenticação falhada
-          JOptionPane.showMessageDialog(loginFrame, "Autenticação falhou!");
-        }
-      }
-    });
-
-    panel.add(usuarioLabel);
-    panel.add(usuarioField);
-    panel.add(senhaLabel);
-    panel.add(senhaField);
-    panel.add(new JLabel()); // Espaço vazio para alinhar o botão
-    panel.add(loginButton);
-
-    loginFrame.add(panel);
-    loginFrame.pack();
-    loginFrame.setLocationRelativeTo(null); // Centralizar a janela na tela
-    loginFrame.setVisible(true);
-  }
-  public static void cadastrarUsuarioPanel() {
-    var idCampo = new JTextField(10);
+    // Campos de texto
     var loginCampo = new JTextField(10);
     var senhaCampo = new JTextField(10);
-    var tipoUsuarioCampo = new JTextField(10);
-    var ativoCampo = new JTextField(10);
+
+    // ComboBox para o tipo de usuário
+    var tipoUsuarioComboBox = new JComboBox<>(TipoUsuario.values());
+
+    // Radio buttons para o status de ativo
+    var ativoRadioButton = new JRadioButton("Ativo");
+    var inativoRadioButton = new JRadioButton("Inativo");
+
+    // Grupo de botões para garantir que apenas uma opção seja selecionada
+    var statusButtonGroup = new ButtonGroup();
+    statusButtonGroup.add(ativoRadioButton);
+    statusButtonGroup.add(inativoRadioButton);
 
     var inputPanel = new JPanel(new GridLayout(0, 2));
-    inputPanel.add(new JLabel("ID:"));
-    inputPanel.add(idCampo);
     inputPanel.add(new JLabel("Login:"));
     inputPanel.add(loginCampo);
     inputPanel.add(new JLabel("Senha:"));
     inputPanel.add(senhaCampo);
     inputPanel.add(new JLabel("Tipo de Usuário:"));
-    inputPanel.add(tipoUsuarioCampo);
-    inputPanel.add(new JLabel("Ativo:"));
-    inputPanel.add(ativoCampo);
+    inputPanel.add(tipoUsuarioComboBox);
+    inputPanel.add(new JLabel("Status:"));
+    inputPanel.add(ativoRadioButton);
+    inputPanel.add(new JLabel()); // Espaço vazio para alinhar os radio buttons
+    inputPanel.add(inativoRadioButton);
 
     int option = JOptionPane.showConfirmDialog(null, inputPanel, "Formulário de Usuário",
         JOptionPane.OK_CANCEL_OPTION);
     if (option == JOptionPane.OK_OPTION) {
-      String id = idCampo.getText();
       String login = loginCampo.getText();
       String senha = senhaCampo.getText();
-      String tipoUsuario = tipoUsuarioCampo.getText();
-      String ativo = ativoCampo.getText();
+      TipoUsuario tipoUsuario = (TipoUsuario) tipoUsuarioComboBox.getSelectedItem();
+      boolean ativo = ativoRadioButton.isSelected();
+
+      // Atribua os valores aos atributos do objeto UsuarioModel
+      int contadorIds = 1;
+      usuarioModel.setId(contadorIds);
+      usuarioModel.setLogin(login);
+      usuarioModel.setSenha(senha);
+      usuarioModel.setTipoUsuario(tipoUsuario);
+      usuarioModel.setAtivo(ativo);
     }
 
+    return usuarioModel;
   }
+
+
 }

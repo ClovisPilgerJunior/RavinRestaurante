@@ -2,20 +2,19 @@ package controller;
 
 import enums.TipoUsuario;
 import model.UsuarioModel;
-
-import java.util.ArrayList;
-import java.util.List;
+import repository.UsuarioRepo;
+import view.UsuarioView;
 
 public class UsuarioController {
-    private final List<UsuarioModel> usuarios;
+    private final UsuarioRepo usuarioRepo;
 
     public UsuarioController() {
-        usuarios = new ArrayList<>();
+        usuarioRepo = new UsuarioRepo();
         criarUsuarioAdministradorInicial();
     }
 
     public boolean autenticarUsuario(String login, String senha) {
-        for (UsuarioModel usuario : usuarios) {
+        for (UsuarioModel usuario : usuarioRepo.listarTodos()) {
             if (usuario.getLogin().equals(login) && usuario.getSenha().equals(senha)) {
                 return true; // Autenticação bem-sucedida
             }
@@ -24,15 +23,15 @@ public class UsuarioController {
     }
 
     public void criarUsuario(UsuarioModel novoUsuario) {
-        usuarios.add(novoUsuario);
+        usuarioRepo.salvar(novoUsuario);
     }
 
     public void excluirUsuario(UsuarioModel usuario) {
-        usuarios.remove(usuario);
+        usuarioRepo.excluir(usuario);
     }
 
     public UsuarioModel obterUsuario(String username) {
-        for (UsuarioModel usuario : usuarios) {
+        for (UsuarioModel usuario : usuarioRepo.listarTodos()) {
             if (usuario.getLogin().equals(username)) {
                 return usuario;
             }
@@ -42,16 +41,14 @@ public class UsuarioController {
 
     private void criarUsuarioAdministradorInicial() {
         // Verificar se o usuário administrador já existe
-        for (UsuarioModel usuario : usuarios) {
+        for (UsuarioModel usuario : usuarioRepo.listarTodos()) {
             if (usuario.getTipoUsuario() == TipoUsuario.ADMINISTRADOR) {
                 return; // Usuário administrador já cadastrado
             }
         }
 
         // Criar o usuário administrador
-        UsuarioModel usuarioAdmin = new UsuarioModel(
-
-        );
+        UsuarioModel usuarioAdmin = new UsuarioModel();
         usuarioAdmin.setId(1);
         usuarioAdmin.setLogin("admin");
         usuarioAdmin.setSenha("admin");
@@ -59,8 +56,17 @@ public class UsuarioController {
         usuarioAdmin.setTipoUsuario(TipoUsuario.ADMINISTRADOR);
         // Defina outros atributos do usuário administrador, se necessário
 
-        usuarios.add(usuarioAdmin);
+        usuarioRepo.salvar(usuarioAdmin);
+    }
+
+    public boolean isUsuarioAdministrador() {
+        UsuarioModel usuarioAdmin = obterUsuario("admin"); // Supondo que "admin" seja o nome de usuário do administrador
+        if (usuarioAdmin != null && usuarioAdmin.getTipoUsuario() == TipoUsuario.ADMINISTRADOR) {
+            return true; // O usuário é um administrador
+        }
+        return false; // O usuário não é um administrador
     }
 }
+
 
 
