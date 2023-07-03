@@ -1,14 +1,20 @@
 package view;
 
+import controller.UsuarioController;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import static view.MenuMainView.exibirMenuPrincipal;
-import static view.MenuMainView.usuarioController;
+import static view.PricinpalView.atualizarUsuarioLabel;
+import static view.PricinpalView.exibirMenuPrincipal;
 
 public class LoginView {
+
+  private static UsuarioController usuarioController;
+
+  public LoginView(UsuarioController usuarioController){
+    LoginView.usuarioController = usuarioController;
+  }
   public static void criarLoginMenu(){
     JFrame loginFrame = new JFrame("Tela de Login");
     loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -22,24 +28,22 @@ public class LoginView {
     var senhaField = new JPasswordField(10);
 
     var loginButton = new JButton("Login");
+    loginButton.addActionListener(e -> {
 
-    loginButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        var login = usuarioField.getText();
-        var senha = String.valueOf(senhaField.getPassword());
+      String login = usuarioField.getText();
+      String senha = String.valueOf(senhaField.getPassword());
 
-        boolean autenticado = usuarioController.autenticarUsuario(login, senha);
+      boolean autenticar = usuarioController.autenticarUsuario(login, senha);
 
-        if (autenticado) {
-          // Lógica para ação após a autenticação bem-sucedida
-          JOptionPane.showMessageDialog(loginFrame, "Autenticação bem-sucedida!");
-          loginFrame.dispose();
-          exibirMenuPrincipal();
-        } else {
-          // Lógica para ação após a autenticação falhada
-          JOptionPane.showMessageDialog(loginFrame, "Autenticação falhou!");
-        }
+      if (autenticar) {
+        // Lógica para ação após a autenticação bem-sucedida
+        JOptionPane.showMessageDialog(loginFrame, "Autenticação bem-sucedida!");
+        loginFrame.dispose();
+        exibirMenuPrincipal();
+        atualizarUsuarioLabel(login);
+      } else {
+        // Lógica para ação após a autenticação falhada
+        JOptionPane.showMessageDialog(loginFrame, "Autenticação falhou!");
       }
     });
 
@@ -50,9 +54,11 @@ public class LoginView {
     panel.add(new JLabel()); // Espaço vazio para alinhar o botão
     panel.add(loginButton);
 
-    loginFrame.add(panel);
-    loginFrame.pack();
-    loginFrame.setLocationRelativeTo(null); // Centralizar a janela na tela
-    loginFrame.setVisible(true);
+    JDialog dialog = new JDialog(loginFrame, "Tela de Login", true);
+    dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    dialog.add(panel);
+    dialog.pack();
+    dialog.setLocationRelativeTo(null); // Centralizar a janela na tela
+    dialog.setVisible(true);
   }
 }

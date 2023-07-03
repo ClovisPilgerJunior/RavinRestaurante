@@ -10,7 +10,7 @@ public class UsuarioRepo {
   private final List<UsuarioModel> usuarios;
 
   public UsuarioRepo() {
-    usuarios = new ArrayList<UsuarioModel>();
+    usuarios = new ArrayList<>();
   }
 
   public void salvar(UsuarioModel entidade) {
@@ -33,25 +33,29 @@ public class UsuarioRepo {
   }
 
   public UsuarioModel buscarPorId(int id) {
-    UsuarioModel funcionarioBuscado = null;
-    for (UsuarioModel funcionario : usuarios) {
-      if (funcionario.getId() == id)
-        funcionarioBuscado = funcionario;
+    UsuarioModel usuarioBuscado = null;
+    for (UsuarioModel usuario : usuarios) {
+      if (usuario.getId() == id)
+        usuarioBuscado = usuario;
     }
 
-    return funcionarioBuscado;
+    return usuarioBuscado;
   }
 
-  public void deletarPeloId(UsuarioModel funcionario) {
-    usuarios.remove(funcionario);
+  public void deletarPeloId(UsuarioModel usuario) {
+    usuarios.remove(usuario);
   }
 
   public int contar() {
     return usuarios.size();
   }
 
-  public UsuarioModel buscarPorNome(String nome) {
-    return null;
+  public UsuarioModel buscarPorCredenciais(String login, String senha) {
+    for (UsuarioModel usuario : usuarios) {
+      if (usuario.getLogin().equals(login) && usuario.getSenha().equals(senha)) {
+        return usuario; // Retorna o usuário encontrado com as credenciais correspondentes
+      }
+    }
+    return null; // Retorna null se as credenciais não corresponderem a nenhum usuário
   }
-
 }

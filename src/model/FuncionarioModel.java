@@ -19,8 +19,8 @@ public class FuncionarioModel extends UsuarioModel{
   public FuncionarioModel () {
   }
 
-  public FuncionarioModel (int id, String login, String senha, TipoUsuario tipoUsuario, boolean ativo, String criadoPor, LocalDate criadoEm, String alteradoPor, LocalDate alteradoEm, EstadoCivil estadoCivil, Escolaridade escolaridade, Cargo cargo, String nCarteiraTrabalho, LocalDate dataAdmissao, LocalDate dataDemissao, boolean disponibildiade) {
-    super(id, login, senha, tipoUsuario, ativo, criadoPor, criadoEm, alteradoPor, alteradoEm);
+  public FuncionarioModel (String login, String senha, TipoUsuario tipoUsuario, boolean ativo, boolean logado, String criadoPor, LocalDate criadoEm, String alteradoPor, LocalDate alteradoEm, EstadoCivil estadoCivil, Escolaridade escolaridade, Cargo cargo, String nCarteiraTrabalho, LocalDate dataAdmissao, LocalDate dataDemissao, boolean disponibildiade) {
+    super(login, senha, tipoUsuario, ativo, logado, criadoPor, criadoEm, alteradoPor, alteradoEm);
     this.estadoCivil = estadoCivil;
     this.escolaridade = escolaridade;
     this.cargo = cargo;

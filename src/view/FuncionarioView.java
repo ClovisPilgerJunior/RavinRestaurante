@@ -1,5 +1,7 @@
 package view;
 
+import controller.UsuarioController;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,7 +26,7 @@ public class FuncionarioView {
       @Override
       public void actionPerformed(ActionEvent e) {
         // Lógica para cadastrar funcionário
-        UsuarioView.cadastrarUsuarioPanel();
+        //
       }
     });
 

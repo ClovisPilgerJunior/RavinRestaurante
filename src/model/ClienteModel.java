@@ -11,8 +11,8 @@ public class ClienteModel extends UsuarioModel{
   public ClienteModel () {
   }
 
-  public ClienteModel (int id, String login, String senha, TipoUsuario tipoUsuario, boolean ativo, String criadoPor, LocalDate criadoEm, String alteradoPor, LocalDate alteradoEm) {
-    super(id, login, senha, tipoUsuario, ativo, criadoPor, criadoEm, alteradoPor, alteradoEm);
+  public ClienteModel (String login, String senha, TipoUsuario tipoUsuario, boolean ativo, boolean logado, String criadoPor, LocalDate criadoEm, String alteradoPor, LocalDate alteradoEm) {
+    super(login, senha, tipoUsuario, ativo, logado, criadoPor, criadoEm, alteradoPor, alteradoEm);
   }
 
   public String getAlergia () {

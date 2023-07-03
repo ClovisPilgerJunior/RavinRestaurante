@@ -16,8 +16,8 @@ public class PessoaModel extends UsuarioModel {
   public PessoaModel () {
   }
 
-  public PessoaModel (int id, String login, String senha, TipoUsuario tipoUsuario, boolean ativo, String criadoPor, LocalDate criadoEm, String alteradoPor, LocalDate alteradoEm) {
-    super(id, login, senha, tipoUsuario, ativo, criadoPor, criadoEm, alteradoPor, alteradoEm);
+  public PessoaModel (String login, String senha, TipoUsuario tipoUsuario, boolean ativo, boolean logado, String criadoPor, LocalDate criadoEm, String alteradoPor, LocalDate alteradoEm) {
+    super(login, senha, tipoUsuario, ativo, logado, criadoPor, criadoEm, alteradoPor, alteradoEm);
   }
 
   public String getNome () {

@@ -9,10 +9,12 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class PricipalView {
-      static final UsuarioController usuarioController = new UsuarioController();
+public class PricinpalView {
+
+      private static JLabel usuarioLabel;
 
       public static void exibirMenuPrincipal() {
+            UsuarioController usuarioController = new UsuarioController();
             JFrame frame = new JFrame("Menu Principal");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -24,16 +26,14 @@ public class PricipalView {
             CardapioView.criarCardapioMenu(menuBar);
             CardapioView.criarCardapioMenu(menuBar);
             PedidoView.criarPedidoMenu(menuBar);
-            if (usuarioController.isUsuarioAdministrador()) {
-                  UsuarioView.criarMenuUsuario(menuBar);
-            }
+            UsuarioView.criarMenuUsuario(menuBar);
             SairView.criarSairMenu(menuBar);
 
             frame.setJMenuBar(menuBar);
 
             // Adicionar a barra de status na parte inferior
             JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-            JLabel usuarioLabel = new JLabel("Usuário: " + "admin");
+            usuarioLabel = new JLabel("Usuário: ");
             JLabel horaLabel = new JLabel("Hora: ");
 
             statusPanel.add(usuarioLabel);
@@ -56,6 +56,7 @@ public class PricipalView {
                         horaLabel.setText("Hora: " + horaFormatada);
                   }
             });
+
              // Iniciar imediatamente e atualizar a cada 1 segundo
             timer.start();
 
@@ -63,6 +64,10 @@ public class PricipalView {
             frame.setResizable(false);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
+      }
+
+      public static void atualizarUsuarioLabel(String nomeUsuario) {
+            usuarioLabel.setText("Usuário: " + nomeUsuario);
       }
 }
 

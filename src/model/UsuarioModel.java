@@ -4,11 +4,13 @@ import enums.TipoUsuario;
 import java.time.LocalDate;
 
 public class UsuarioModel {
+    private static int ultimoId = 0;
     private int id;
     private String login;
     private String senha;
     private TipoUsuario tipoUsuario;
     private boolean ativo;
+    private boolean logado;
     private String criadoPor;
     private LocalDate criadoEm;
     private String alteradoPor;
@@ -30,14 +32,15 @@ public class UsuarioModel {
     }
 
     public UsuarioModel () {
+            this.id = ++ultimoId;
     }
 
-    public UsuarioModel (int id, String login, String senha, TipoUsuario tipoUsuario, boolean ativo, String criadoPor, LocalDate criadoEm, String alteradoPor, LocalDate alteradoEm) {
-        this.id = id;
+    public UsuarioModel (String login, String senha, TipoUsuario tipoUsuario, boolean ativo, boolean logado, String criadoPor, LocalDate criadoEm, String alteradoPor, LocalDate alteradoEm) {
         this.login = login;
         this.senha = senha;
         this.tipoUsuario = tipoUsuario;
         this.ativo = ativo;
+        this.logado = logado;
         this.criadoPor = criadoPor;
         this.criadoEm = criadoEm;
         this.alteradoPor = alteradoPor;
@@ -82,6 +85,15 @@ public class UsuarioModel {
 
     public void setAtivo (boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public boolean isLogado() {
+        return logado;
+    }
+
+    public UsuarioModel setLogado(boolean logado) {
+        this.logado = logado;
+        return this;
     }
 
     public String getCriadoPor () {
