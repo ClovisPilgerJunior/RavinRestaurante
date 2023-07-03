@@ -10,24 +10,27 @@ import java.time.LocalDate;
 public class FuncionarioModel extends UsuarioModel{
   private EstadoCivil estadoCivil;
   private Escolaridade escolaridade;
+
+  private LocalDate dataNascimeto;
   private Cargo cargo;
   private String nCarteiraTrabalho;
   private LocalDate dataAdmissao;
   private LocalDate dataDemissao;
-  private boolean disponibildiade;
+  private boolean disponibilidade;
 
   public FuncionarioModel () {
   }
 
-  public FuncionarioModel (String login, String senha, TipoUsuario tipoUsuario, boolean ativo, boolean logado, String criadoPor, LocalDate criadoEm, String alteradoPor, LocalDate alteradoEm, EstadoCivil estadoCivil, Escolaridade escolaridade, Cargo cargo, String nCarteiraTrabalho, LocalDate dataAdmissao, LocalDate dataDemissao, boolean disponibildiade) {
+  public FuncionarioModel (String login, String senha, TipoUsuario tipoUsuario, boolean ativo, boolean logado, String criadoPor, LocalDate criadoEm, String alteradoPor, LocalDate alteradoEm, EstadoCivil estadoCivil, Escolaridade escolaridade, LocalDate dataNascimeto, Cargo cargo, String nCarteiraTrabalho, LocalDate dataAdmissao, LocalDate dataDemissao, boolean disponibildiade) {
     super(login, senha, tipoUsuario, ativo, logado, criadoPor, criadoEm, alteradoPor, alteradoEm);
     this.estadoCivil = estadoCivil;
     this.escolaridade = escolaridade;
+    this.dataNascimeto = dataNascimeto;
     this.cargo = cargo;
     this.nCarteiraTrabalho = nCarteiraTrabalho;
     this.dataAdmissao = dataAdmissao;
     this.dataDemissao = dataDemissao;
-    this.disponibildiade = disponibildiade;
+    this.disponibilidade = disponibildiade;
   }
 
   public EstadoCivil getEstadoCivil () {
@@ -78,11 +81,19 @@ public class FuncionarioModel extends UsuarioModel{
     this.dataDemissao = dataDemissao;
   }
 
-  public boolean isDisponibildiade () {
-    return disponibildiade;
+  public boolean isDisponibilidade() {
+    return disponibilidade;
   }
 
-  public void setDisponibildiade (boolean disponibildiade) {
-    this.disponibildiade = disponibildiade;
+  public void setDisponibilidade(boolean disponibilidade) {
+    this.disponibilidade = disponibilidade;
+  }
+
+  public LocalDate getDataNascimeto() {
+    return dataNascimeto;
+  }
+
+  public void setDataNascimeto(LocalDate dataNascimeto) {
+    this.dataNascimeto = dataNascimeto;
   }
 }

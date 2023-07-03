@@ -60,7 +60,7 @@ public class PricinpalView {
              // Iniciar imediatamente e atualizar a cada 1 segundo
             timer.start();
 
-            frame.setSize(800, 600);
+            frame.setSize(1200, 800);
             frame.setResizable(false);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);

@@ -1,3 +1,4 @@
+import controller.FuncionarioController;
 import controller.UsuarioController;
 import view.LoginView;
 import view.PricinpalView;
@@ -8,7 +9,7 @@ public class RavinMain {
         UsuarioController usuarioController = new UsuarioController();
         usuarioController.criarUsuarioAdministradorInicial();
 
-        UsuarioView usuarioView = new UsuarioView(usuarioController);
+        FuncionarioController funcionarioController = new FuncionarioController();
 
         LoginView loginView = new LoginView(usuarioController);
         loginView.criarLoginMenu();

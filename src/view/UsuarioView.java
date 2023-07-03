@@ -24,13 +24,11 @@ public class UsuarioView {
     JMenuItem trocarUsuarioItem = new JMenuItem("Trocar Usuário");
     JMenuItem cadastrarUsuarioItem = new JMenuItem("Cadastrar");
     JMenuItem alterarUsuarioItem = new JMenuItem("Alterar");
-    JMenuItem buscarUsuarioItem = new JMenuItem("Buscar");
     JMenuItem listarUsuarioItem = new JMenuItem("Listar");
 
     usuarioMenu.add(trocarUsuarioItem);
     usuarioMenu.add(cadastrarUsuarioItem);
     usuarioMenu.add(alterarUsuarioItem);
-    usuarioMenu.add(buscarUsuarioItem);
     usuarioMenu.add(listarUsuarioItem);
 
     menuBar.add(usuarioMenu);
@@ -48,11 +46,6 @@ public class UsuarioView {
     alterarUsuarioItem.addActionListener(e -> {
       // Lógica para alterar usuário
       alterarUsuarioPanel();
-    });
-
-    buscarUsuarioItem.addActionListener(e -> {
-      // Lógica para buscar usuário
-      JOptionPane.showMessageDialog(null, "Buscar Usuário");
     });
 
     listarUsuarioItem.addActionListener(e -> {
@@ -173,6 +166,7 @@ public class UsuarioView {
 
     // Radio buttons para o status de ativo
     var ativoRadioButton = new JRadioButton("Ativo");
+    ativoRadioButton.setSelected(true);
     var inativoRadioButton = new JRadioButton("Inativo");
 
     // Grupo de botões para garantir que apenas uma opção seja selecionada
@@ -206,18 +200,26 @@ public class UsuarioView {
         String senha = senhaCampo.getText();
         TipoUsuario tipoUsuario = (TipoUsuario) tipoUsuarioComboBox.getSelectedItem();
         boolean ativo = ativoRadioButton.isSelected();
+        if (loginCampo.getText().isBlank() && senhaCampo.getText().isBlank()){
+          JOptionPane.showMessageDialog(null, "Preencha os campos Usuário e Senha");
+        } else {
+          usuarioModel.setLogin(login);
+          usuarioModel.setSenha(senha);
+          usuarioModel.setTipoUsuario(tipoUsuario);
+          usuarioModel.setAtivo(ativo);
 
+          try {
+            usuarioController.salvarUsuario(usuarioModel);
+            System.out.println(usuarioModel);
+            JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
+          } catch (Exception ex){
+            JOptionPane.showMessageDialog(null, "Erro:" + ex.getMessage());
+          }
+
+          // Fechar o diálogo
+          JOptionPane.getRootFrame().dispose();
+        }
         // Atribua os valores aos atributos do objeto UsuarioModel
-        usuarioModel.setLogin(login);
-        usuarioModel.setSenha(senha);
-        usuarioModel.setTipoUsuario(tipoUsuario);
-        usuarioModel.setAtivo(ativo);
-
-        usuarioController.salvarUsuario(usuarioModel);
-        System.out.println(usuarioModel);
-
-        // Fechar o diálogo
-        JOptionPane.getRootFrame().dispose();
     });
 
     cancelarButton.addActionListener(e -> {
@@ -243,12 +245,10 @@ public class UsuarioView {
     mainPanel.add(inputPanel, BorderLayout.CENTER);
     mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-    JOptionPane.showOptionDialog(null, mainPanel, "Formulário de Usuário", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
+    JOptionPane.showOptionDialog(null, mainPanel, "Cadastrar Usuário", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
   }
 
   public static void alterarUsuarioPanel() {
-    UsuarioModel usuarioModel = new UsuarioModel();
-
     // Campos de texto
     var loginCampoAlterar = new JTextField(10);
     var senhaCampoAlterar = new JTextField(10);
@@ -266,55 +266,50 @@ public class UsuarioView {
     // Botão "Buscar"
     var buscarButton = new JButton("Buscar");
 
+    UsuarioModel usuarioModel = new UsuarioModel();
+
     // Ação ao pressionar o botão "Buscar"
     buscarButton.addActionListener(e -> {
-      int id = Integer.parseInt(idCampo.getText());
+      String idText = idCampo.getText();
 
-      // Buscar o usuário pelo ID
-      UsuarioModel usuario = usuarioController.buscarUsuarioPorId(id);
-
-      if (usuario != null) {
-        // Preencher os campos com as informações do usuário
-        loginCampoAlterar.setText(usuario.getLogin());
-        senhaCampoAlterar.setText(usuario.getSenha());
-        tipoUsuarioComboBoxAlterar.setSelectedItem(usuario.getTipoUsuario());
-        ativoRadioButtonAlterar.setSelected(usuario.isAtivo());
-        inativoRadioButtonAlterar.setSelected(!usuario.isAtivo());
+      if (idText.isBlank()) {
+        JOptionPane.showMessageDialog(null, "Digite o ID do usuário.");
+      } else if (!idText.matches("\\d+")) {
+        JOptionPane.showMessageDialog(null, "ID inválido. Digite um número inteiro válido.");
       } else {
-        JOptionPane.showMessageDialog(null, "Usuário não encontrado.");
+        int id = Integer.parseInt(idText);
+
+        UsuarioModel usuario = usuarioController.buscarUsuarioPorId(id);
+        // Buscar o usuário pelo ID
+        if (usuario != null) {
+          // Preencher os campos com as informações do usuário
+          loginCampoAlterar.setText(usuario.getLogin());
+          senhaCampoAlterar.setText(usuario.getSenha());
+          tipoUsuarioComboBoxAlterar.setSelectedItem(usuario.getTipoUsuario());
+          ativoRadioButtonAlterar.setSelected(usuario.isAtivo());
+          inativoRadioButtonAlterar.setSelected(!usuario.isAtivo());
+        } else {
+          JOptionPane.showMessageDialog(null, "Usuário não encontrado.");
+        }
       }
     });
-
-    // Campos de texto
-    var loginCampo = new JTextField(10);
-    var senhaCampo = new JTextField(10);
-
-    // ComboBox para o tipo de usuário
-    var tipoUsuarioComboBox = new JComboBox<>(TipoUsuario.values());
-
-    // Radio buttons para o status de ativo
-    var ativoRadioButton = new JRadioButton("Ativo");
-    var inativoRadioButton = new JRadioButton("Inativo");
-
-    // Grupo de botões para garantir que apenas uma opção seja selecionada
-    var statusButtonGroup = new ButtonGroup();
-    statusButtonGroup.add(ativoRadioButton);
-    statusButtonGroup.add(inativoRadioButton);
 
     var inputPanel = new JPanel(new GridLayout(0, 2));
     inputPanel.add(new JLabel("ID:"));
     inputPanel.add(idCampo);
+    inputPanel.add(new JLabel()); // Espaço vazio para alinhar com a próxima linha
     inputPanel.add(buscarButton);
     inputPanel.add(new JLabel("Login:"));
-    inputPanel.add(loginCampo);
+    inputPanel.add(loginCampoAlterar);
     inputPanel.add(new JLabel("Senha:"));
-    inputPanel.add(senhaCampo);
+    inputPanel.add(senhaCampoAlterar);
     inputPanel.add(new JLabel("Tipo de Usuário:"));
-    inputPanel.add(tipoUsuarioComboBox);
+    inputPanel.add(tipoUsuarioComboBoxAlterar);
     inputPanel.add(new JLabel("Status:"));
-    inputPanel.add(ativoRadioButton);
+    inputPanel.add(ativoRadioButtonAlterar);
     inputPanel.add(new JLabel()); // Espaço vazio para alinhar os radio buttons
-    inputPanel.add(inativoRadioButton);
+    inputPanel.add(inativoRadioButtonAlterar);
+
 
     // Botões
     var salvarButton = new JButton("Salvar");
@@ -323,22 +318,31 @@ public class UsuarioView {
 
     salvarButton.addActionListener(e -> {
       // Ação ao pressionar o botão "Salvar"
-      String login = loginCampo.getText();
-      String senha = senhaCampo.getText();
-      TipoUsuario tipoUsuario = (TipoUsuario) tipoUsuarioComboBox.getSelectedItem();
-      boolean ativo = ativoRadioButton.isSelected();
+      String login = loginCampoAlterar.getText();
+      String senha = senhaCampoAlterar.getText();
+      TipoUsuario tipoUsuario = (TipoUsuario) tipoUsuarioComboBoxAlterar.getSelectedItem();
+      boolean ativo = ativoRadioButtonAlterar.isSelected();
 
-      // Atribua os valores aos atributos do objeto UsuarioModel
-      usuarioModel.setLogin(login);
-      usuarioModel.setSenha(senha);
-      usuarioModel.setTipoUsuario(tipoUsuario);
-      usuarioModel.setAtivo(ativo);
+      if (loginCampoAlterar.getText().isBlank() && senhaCampoAlterar.getText().isBlank()){
+        JOptionPane.showMessageDialog(null, "Preencha os campos Usuário e Senha");
+      } else {
+        usuarioModel.setLogin(login);
+        usuarioModel.setSenha(senha);
+        usuarioModel.setTipoUsuario(tipoUsuario);
+        usuarioModel.setAtivo(ativo);
 
-      usuarioController.salvarUsuario(usuarioModel);
-      System.out.println(usuarioModel);
+        try {
+          usuarioController.salvarUsuario(usuarioModel);
+          System.out.println(usuarioModel);
+          JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
+        } catch (Exception ex){
+          JOptionPane.showMessageDialog(null, "Erro:" + ex.getMessage());
+        }
 
-      // Fechar o diálogo
-      JOptionPane.getRootFrame().dispose();
+        // Fechar o diálogo
+        JOptionPane.getRootFrame().dispose();
+      }
+
     });
 
     cancelarButton.addActionListener(e -> {
@@ -363,8 +367,6 @@ public class UsuarioView {
     mainPanel.add(inputPanel, BorderLayout.CENTER);
     mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-    JOptionPane.showOptionDialog(null, mainPanel, "Formulário de Usuário", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
+    JOptionPane.showOptionDialog(null, mainPanel, "Alterar Usuário", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
   }
-
-
 }
