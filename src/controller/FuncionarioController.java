@@ -17,7 +17,7 @@ public class FuncionarioController {
   }
 
   public void salvar(FuncionarioModel entidade) throws Exception {
-    LocalDate dataNascimento = entidade.getDataNascimeto();
+    LocalDate dataNascimento = entidade.getDataNascimento();
     LocalDate dataAtual = LocalDate.now();
     LocalDate dataLimite = dataAtual.minusYears(18); // Subtrai 18 anos da data atual
 

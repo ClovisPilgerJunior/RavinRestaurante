@@ -4,8 +4,6 @@ import controller.FuncionarioController;
 import enums.Cargo;
 import enums.Escolaridade;
 import enums.EstadoCivil;
-import enums.TipoUsuario;
-import model.EnderecoModel;
 import model.FuncionarioModel;
 
 
@@ -21,11 +19,11 @@ public class FuncionarioView {
 
   private static FuncionarioController funcionarioController;
 
-  public FuncionarioView (FuncionarioController funcionarioController){
+  public FuncionarioView(FuncionarioController funcionarioController) {
     FuncionarioView.funcionarioController = funcionarioController;
   }
 
-  public static void criarMenuFuncionario(JMenuBar menuBar){
+  public static void criarMenuFuncionario(JMenuBar menuBar) {
     JMenu funcionarioMenu = new JMenu("Funcionário");
     JMenuItem cadastrarFuncionarioItem = new JMenuItem("Cadastrar");
     JMenuItem alterarFuncionarioItem = new JMenuItem("Alterar");
@@ -51,13 +49,14 @@ public class FuncionarioView {
       }
     });
 
-    buscarFuncionarioItem.addActionListener(e ->{
+    buscarFuncionarioItem.addActionListener(e -> {
     });
 
     listarFuncionariosItem.addActionListener(e -> {
 
     });
   }
+
   public static void cadastrarFuncionarioPanel() {
     // Campos específicos de funcionários
     var nomeCampo = new JTextField(10);
@@ -171,11 +170,7 @@ public class FuncionarioView {
       if (nome.isBlank() || cpf.isBlank()) {
         JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
       } else {
-        EnderecoModel enderecoModel = new EnderecoModel(cep, cidade, estado, logradouro, endereco, numero, complemento, bairro);
-        FuncionarioModel funcionarioModel = new FuncionarioModel(nome, telefone, dataNascimento, cpf,
-            email, observacao, ativo, estadoCivil, escolaridade, cargo, carteiraTrabalho, dataAdmissao, dataDemissao, disponibilidade
-        );
-
+        FuncionarioModel funcionarioModel = new FuncionarioModel(nome, telefone, dataNascimento, cpf, cep, cidade, estado, logradouro, endereco, numero, complemento, bairro, email, observacao, ativo, estadoCivil, escolaridade, cargo, carteiraTrabalho, dataAdmissao, dataDemissao, disponibilidade);
         try {
           funcionarioController.salvar(funcionarioModel);
           System.out.println(funcionarioModel);
@@ -211,10 +206,7 @@ public class FuncionarioView {
     mainPanel.add(inputPanel, BorderLayout.CENTER);
     mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-    JOptionPane.showOptionDialog(
-        null, mainPanel, "Cadastrar Funcionário",
-        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null
-    );
+    JOptionPane.showOptionDialog(null, mainPanel, "Cadastrar Funcionário", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
   }
 
 

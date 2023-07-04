@@ -16,8 +16,8 @@ public class FuncionarioModel extends PessoaModel{
   private LocalDate dataDemissao;
   private boolean disponibilidade;
 
-  public FuncionarioModel(String nome, String telefone, LocalDate dataNascimento, String cpf, String email, String observacao, boolean ativo, EstadoCivil estadoCivil, Escolaridade escolaridade, Cargo cargo, String nCarteiraTrabalho, LocalDate dataAdmissao, LocalDate dataDemissao, boolean disponibilidade) {
-    super(nome, telefone, dataNascimento, cpf, endereco, email, observacao, ativo);
+  public FuncionarioModel(String nome, String telefone, LocalDate dataNascimento, String cpf, int cep, String cidade, String estado, String logradouro, String enderecoLocal, int numero, String complemento, String bairro, String email, String observacao, boolean ativo, EstadoCivil estadoCivil, Escolaridade escolaridade, Cargo cargo, String nCarteiraTrabalho, LocalDate dataAdmissao, LocalDate dataDemissao, boolean disponibilidade) {
+    super(nome, telefone, dataNascimento, cpf, cep, cidade, estado, logradouro, enderecoLocal, numero, complemento, bairro, email, observacao, ativo);
     this.estadoCivil = estadoCivil;
     this.escolaridade = escolaridade;
     this.cargo = cargo;
