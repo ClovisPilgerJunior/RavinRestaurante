@@ -9,8 +9,6 @@ public class RavinMain {
         UsuarioController usuarioController = new UsuarioController();
         usuarioController.criarUsuarioAdministradorInicial();
 
-        FuncionarioController funcionarioController = new FuncionarioController();
-
         LoginView loginView = new LoginView(usuarioController);
         loginView.criarLoginMenu();
     }

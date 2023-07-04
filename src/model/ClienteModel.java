@@ -1,18 +1,18 @@
 package model;
 
-import enums.TipoUsuario;
-
 import java.time.LocalDate;
 
-public class ClienteModel extends UsuarioModel{
+public class ClienteModel extends PessoaModel{
   private String Alergia;
   private boolean vip;
 
   public ClienteModel () {
   }
 
-  public ClienteModel (String login, String senha, TipoUsuario tipoUsuario, boolean ativo, boolean logado, String criadoPor, LocalDate criadoEm, String alteradoPor, LocalDate alteradoEm) {
-    super(login, senha, tipoUsuario, ativo, logado, criadoPor, criadoEm, alteradoPor, alteradoEm);
+  public ClienteModel(String nome, String telefone, LocalDate dataNascimento, String cpf, EnderecoModel endereco, String email, String observacao, boolean ativo, String alergia, boolean vip) {
+    super(nome, telefone, dataNascimento, cpf, endereco, email, observacao, ativo);
+    Alergia = alergia;
+    this.vip = vip;
   }
 
   public String getAlergia () {
