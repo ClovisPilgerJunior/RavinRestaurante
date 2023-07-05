@@ -45,7 +45,7 @@ public class FuncionarioController {
     return funcionarioRepo.buscarPorId(id);
   }
 
-  public List<FuncionarioModel> listarTodos() {
+  public List<FuncionarioModel> listarFuncionarios() {
     return funcionarioRepo.listarTodos();
   }
 

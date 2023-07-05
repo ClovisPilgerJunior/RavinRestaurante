@@ -5,12 +5,17 @@ import enums.Cargo;
 import enums.Escolaridade;
 import enums.EstadoCivil;
 import model.FuncionarioModel;
+import utils.NonEditableTableModel;
 
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.time.LocalDate;
 
 import static utils.DataUtils.parseLocalDate;
@@ -53,7 +58,7 @@ public class FuncionarioView {
     });
 
     listarFuncionariosItem.addActionListener(e -> {
-
+      listarFuncionarios();
     });
   }
 
@@ -191,7 +196,7 @@ public class FuncionarioView {
     });
 
     listarButton.addActionListener(e -> {
-      // listarFuncionarios();
+      listarFuncionarios();
     });
 
     inputPanel.add(new JLabel()); // Espaço vazio para alinhar o botão
@@ -207,6 +212,85 @@ public class FuncionarioView {
     mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
     JOptionPane.showOptionDialog(null, mainPanel, "Cadastrar Funcionário", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
+  }
+
+  public static void listarFuncionarios() {
+    List<FuncionarioModel> funcionarios = funcionarioController.listarFuncionarios();
+
+    // Criar um array com os dados dos funcionários para popular a tabela
+    Object[][] data = new Object[funcionarios.size()][4];
+
+    for (int i = 0; i < funcionarios.size(); i++) {
+      FuncionarioModel funcionario = funcionarios.get(i);
+      data[i][0] = funcionario.getId();
+      data[i][1] = funcionario.getNome();
+      data[i][2] = funcionario.isAtivo();
+      data[i][3] = funcionario.getCargo();
+    }
+
+    // Criar um array com os nomes das colunas da tabela
+    String[] columnNames = {
+            "Id",
+            "Nome",
+            "Ativo",
+            "Cargo"
+    };
+
+    JFrame parentFrame = null;
+
+    // Criar o modelo da tabela usando o NonEditableTableModel
+    NonEditableTableModel tableModel = new NonEditableTableModel(data, columnNames);
+
+    // Criar a tabela com os dados e os nomes das colunas
+    JTable table = new JTable(tableModel) {
+      // Sobrescrever o método isCellEditable para tornar todas as células não editáveis
+      @Override
+      public boolean isCellEditable(int row, int column) {
+        return false;
+      }
+    };
+
+    // Definir o modo de redimensionamento automático das colunas
+    table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+
+    // Ajustar o tamanho das colunas com base no tamanho do conteúdo do cabeçalho
+    for (int i = 0; i < table.getColumnCount(); i++) {
+      TableColumn column = table.getColumnModel().getColumn(i);
+      TableCellRenderer headerRenderer = column.getHeaderRenderer();
+      if (headerRenderer == null) {
+        headerRenderer = table.getTableHeader().getDefaultRenderer();
+      }
+      Object headerValue = column.getHeaderValue();
+      Component headerComp = headerRenderer.getTableCellRendererComponent(table, headerValue, false, false, 0, 0);
+      int headerWidth = headerComp.getPreferredSize().width;
+      int cellWidth = table.prepareRenderer(table.getCellRenderer(0, i), 0, i).getPreferredSize().width;
+      int width = Math.max(headerWidth, cellWidth);
+      column.setPreferredWidth(width);
+    }
+
+    // Centralizar o conteúdo das células
+    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+    centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+    for (int i = 0; i < table.getColumnCount(); i++) {
+      table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+    }
+
+    // Criar uma barra de rolagem para a tabela
+    JScrollPane scrollPane = new JScrollPane(table);
+
+    // Criar um painel para exibir a tabela
+    JPanel panel = new JPanel(new BorderLayout());
+    panel.add(scrollPane, BorderLayout.CENTER);
+
+    // Criar uma janela para exibir o painel com a tabela
+    JDialog dialog = new JDialog(parentFrame, "Lista de Funcionários", true); // O terceiro parâmetro true define o diálogo como modal
+    dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    dialog.getContentPane().add(panel);
+    dialog.pack();
+    dialog.setLocationRelativeTo(parentFrame); // Centralizar o diálogo em relação ao JFrame pai
+    dialog.setResizable(false);
+    dialog.setSize(800, 600);
+    dialog.setVisible(true);
   }
 
 

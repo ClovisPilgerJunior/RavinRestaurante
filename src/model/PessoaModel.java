@@ -42,6 +42,28 @@ public abstract class PessoaModel {
     this.ativo = ativo;
   }
 
+  @Override
+  public String toString() {
+    return "PessoaModel{" +
+            "id=" + id +
+            ", nome='" + nome + '\'' +
+            ", telefone='" + telefone + '\'' +
+            ", dataNascimento=" + dataNascimento +
+            ", cpf='" + cpf + '\'' +
+            ", cep=" + cep +
+            ", cidade='" + cidade + '\'' +
+            ", estado='" + estado + '\'' +
+            ", logradouro='" + logradouro + '\'' +
+            ", enderecoLocal='" + enderecoLocal + '\'' +
+            ", numero=" + numero +
+            ", complemento='" + complemento + '\'' +
+            ", bairro='" + bairro + '\'' +
+            ", email='" + email + '\'' +
+            ", observacao='" + observacao + '\'' +
+            ", ativo=" + ativo +
+            '}';
+  }
+
   public static int getUltimoId() {
     return ultimoId;
   }

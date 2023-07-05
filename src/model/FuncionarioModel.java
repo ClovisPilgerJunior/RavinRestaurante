@@ -27,6 +27,19 @@ public class FuncionarioModel extends PessoaModel{
     this.disponibilidade = disponibilidade;
   }
 
+  @Override
+  public String toString() {
+    return "FuncionarioModel{" +
+            "estadoCivil=" + estadoCivil +
+            ", escolaridade=" + escolaridade +
+            ", cargo=" + cargo +
+            ", nCarteiraTrabalho='" + nCarteiraTrabalho + '\'' +
+            ", dataAdmissao=" + dataAdmissao +
+            ", dataDemissao=" + dataDemissao +
+            ", disponibilidade=" + disponibilidade +
+            "} " + super.toString();
+  }
+
   public EstadoCivil getEstadoCivil() {
     return estadoCivil;
   }
