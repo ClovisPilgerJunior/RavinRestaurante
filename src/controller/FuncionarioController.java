@@ -45,7 +45,10 @@ public class FuncionarioController {
     return funcionarioRepo.buscarPorId(id);
   }
 
-  public List<FuncionarioModel> listarFuncionarios() {
+  public List<FuncionarioModel> listarFuncionarios() throws Exception{
+    if(funcionarioRepo.listarTodos().isEmpty()) {
+      throw new Exception("Nenhum funcionário cadastrado.");
+    }
     return funcionarioRepo.listarTodos();
   }
 
@@ -61,6 +64,10 @@ public class FuncionarioController {
     }
 
     return funcionarioDisponiveis;
+  }
+
+  public FuncionarioModel listarFuncionarioPorId(int id){
+    return funcionarioRepo.buscarPorId(id);
   }
 
 }

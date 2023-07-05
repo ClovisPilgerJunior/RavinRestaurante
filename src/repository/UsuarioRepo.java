@@ -53,6 +53,7 @@ public class UsuarioRepo {
   public UsuarioModel buscarPorCredenciais(String login, String senha) {
     for (UsuarioModel usuario : usuarios) {
       if (usuario.getLogin().equals(login) && usuario.getSenha().equals(senha)) {
+        usuario.setLogado(true);
         return usuario; // Retorna o usuário encontrado com as credenciais correspondentes
       }
     }

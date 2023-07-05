@@ -24,7 +24,6 @@ public class PricinpalView {
             ClienteView.criarMenuCliente(menuBar);
             ProdutoView.criarProdutoMenu(menuBar);
             CardapioView.criarCardapioMenu(menuBar);
-            CardapioView.criarCardapioMenu(menuBar);
             PedidoView.criarPedidoMenu(menuBar);
             UsuarioView.criarMenuUsuario(menuBar);
             SairView.criarSairMenu(menuBar);

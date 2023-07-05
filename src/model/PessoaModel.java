@@ -21,10 +21,16 @@ public abstract class PessoaModel {
   private String email;
   private String observacao;
   private boolean ativo;
+  private String criadoPor;
+  private LocalDate criadoEm;
+  private String alteradoPor;
+  private LocalDate alteradoEm;
 
+  public PessoaModel(){
+  this.id = ++ultimoId;
+  }
 
-  public PessoaModel(String nome, String telefone, LocalDate dataNascimento, String cpf, int cep, String cidade, String estado, String logradouro, String enderecoLocal, int numero, String complemento, String bairro, String email, String observacao, boolean ativo) {
-    this.id = ultimoId++;
+  public PessoaModel(int id, String nome, String telefone, LocalDate dataNascimento, String cpf, int cep, String cidade, String estado, String logradouro, String enderecoLocal, int numero, String complemento, String bairro, String email, String observacao, boolean ativo, String criadoPor, LocalDate criadoEm, String alteradoPor, LocalDate alteradoEm) {
     this.nome = nome;
     this.telefone = telefone;
     this.dataNascimento = dataNascimento;
@@ -40,28 +46,36 @@ public abstract class PessoaModel {
     this.email = email;
     this.observacao = observacao;
     this.ativo = ativo;
+    this.criadoPor = criadoPor;
+    this.criadoEm = criadoEm;
+    this.alteradoPor = alteradoPor;
+    this.alteradoEm = alteradoEm;
   }
 
   @Override
   public String toString() {
     return "PessoaModel{" +
-            "id=" + id +
-            ", nome='" + nome + '\'' +
-            ", telefone='" + telefone + '\'' +
-            ", dataNascimento=" + dataNascimento +
-            ", cpf='" + cpf + '\'' +
-            ", cep=" + cep +
-            ", cidade='" + cidade + '\'' +
-            ", estado='" + estado + '\'' +
-            ", logradouro='" + logradouro + '\'' +
-            ", enderecoLocal='" + enderecoLocal + '\'' +
-            ", numero=" + numero +
-            ", complemento='" + complemento + '\'' +
-            ", bairro='" + bairro + '\'' +
-            ", email='" + email + '\'' +
-            ", observacao='" + observacao + '\'' +
-            ", ativo=" + ativo +
-            '}';
+        "id=" + id +
+        ", nome='" + nome + '\'' +
+        ", telefone='" + telefone + '\'' +
+        ", dataNascimento=" + dataNascimento +
+        ", cpf='" + cpf + '\'' +
+        ", cep=" + cep +
+        ", cidade='" + cidade + '\'' +
+        ", estado='" + estado + '\'' +
+        ", logradouro='" + logradouro + '\'' +
+        ", enderecoLocal='" + enderecoLocal + '\'' +
+        ", numero=" + numero +
+        ", complemento='" + complemento + '\'' +
+        ", bairro='" + bairro + '\'' +
+        ", email='" + email + '\'' +
+        ", observacao='" + observacao + '\'' +
+        ", ativo=" + ativo +
+        ", criadoPor='" + criadoPor + '\'' +
+        ", criadoEm=" + criadoEm +
+        ", alteradoPor='" + alteradoPor + '\'' +
+        ", alteradoEm=" + alteradoEm +
+        '}';
   }
 
   public static int getUltimoId() {
@@ -214,5 +228,37 @@ public abstract class PessoaModel {
   public PessoaModel setAtivo(boolean ativo) {
     this.ativo = ativo;
     return this;
+  }
+
+  public String getCriadoPor() {
+    return criadoPor;
+  }
+
+  public void setCriadoPor(String criadoPor) {
+    this.criadoPor = criadoPor;
+  }
+
+  public LocalDate getCriadoEm() {
+    return criadoEm;
+  }
+
+  public void setCriadoEm(LocalDate criadoEm) {
+    this.criadoEm = criadoEm;
+  }
+
+  public String getAlteradoPor() {
+    return alteradoPor;
+  }
+
+  public void setAlteradoPor(String alteradoPor) {
+    this.alteradoPor = alteradoPor;
+  }
+
+  public LocalDate getAlteradoEm() {
+    return alteradoEm;
+  }
+
+  public void setAlteradoEm(LocalDate alteradoEm) {
+    this.alteradoEm = alteradoEm;
   }
 }

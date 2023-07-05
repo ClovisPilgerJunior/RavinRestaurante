@@ -42,6 +42,10 @@ public class UsuarioController {
         return usuarioAutenticado != null; // Retorna true se o usuário for autenticado com sucesso, false caso contrário
     }
 
+    public boolean deslogarUsuario(int id){
+        UsuarioModel usuarioDeslogado = usuarioRepo.buscarPorId(id);
+        return true;
+    }
     public void criarUsuarioAdministradorInicial() {
 
         // Criar o usuário administrador
